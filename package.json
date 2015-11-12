@@ -1,0 +1,16 @@
+{
+  "name": "phantomjs-html2png",
+  "version": "1.0.0",
+  "description": "",
+  "main": "html2png.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Richard Dingwall",
+  "license": "ISC",
+  "dependencies": {
+    "optparse": "^1.0.5",
+    "phantomjs": "^1.9.18"
+  },
+  "private": true
+}
