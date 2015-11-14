@@ -9,7 +9,12 @@
   "author": "Richard Dingwall",
   "license": "ISC",
   "dependencies": {
-    "optparse": "^1.0.5",
+    "base64url": "^1.0.5",
+    "body-parser": "^1.14.1",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "node-uuid": "^1.4.7",
+    "phantom": "^0.8.3",
     "phantomjs": "^1.9.18"
   },
   "private": true
