@@ -1,4 +1,3 @@
-require('dotenv').load();
 var express = require('express');
 var phantom = require('phantom');
 var base64url = require('base64url');
@@ -6,6 +5,10 @@ var fs = require('fs');
 var uuid = require('node-uuid');
 var bodyParser = require('body-parser');
 var util = require('util');
+
+if (process.env.MARTINI_ENV != 'production') {
+    require('dotenv').load();
+}
 
 var app = express();
 
