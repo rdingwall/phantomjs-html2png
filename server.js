@@ -17,30 +17,28 @@ app.get('/', function (req, res) {
 
 app.use(express.static('static'));
 
-phantom.create(function (ph) {
+app.post('/images', function(req, res) {
+    if (typeof req.body !== 'string' || req.body.length == 0) {
+        console.log('warning: ' + util.inspect(req.body));
+        res.status(400).send('bad request');
+    }
+    var bodyHtml = base64url.decode(req.body);
+    var id = uuid.v1();
+    var htmlFilename = process.env.HTML2PNG_TMP_DIR + '/' + id + '.html';
+    var pngFilename = process.env.HTML2PNG_STATIC_DIR + '/' + id + '.png';
+    var pngUri = process.env.HTML2PNG_URI + '/' + id + '.png';
 
-    app.post('/images', function(req, res) {
-        if (typeof req.body !== 'string' || req.body.length == 0) {
-            console.log('warning: ' + util.inspect(req.body));
-            res.status(400).send('bad request');
+    console.log('id=' + id + ', html=' + htmlFilename + ', png=' + pngFilename);
+
+    fs.writeFile(htmlFilename, bodyHtml, function (err) {
+        if(err) {
+            console.log(err);
+            res.status(500).send(err);
+            return;
         }
-        var bodyHtml = base64url.decode(req.body);
-        var id = uuid.v1();
-        var htmlFilename = process.env.HTML2PNG_TMP_DIR + '/' + id + '.html';
-        var pngFilename = process.env.HTML2PNG_STATIC_DIR + '/' + id + '.png';
-        var pngUri = process.env.HTML2PNG_URI + '/' + id + '.png';
 
-        console.log('id=' + id + ', html=' + htmlFilename + ', png=' + pngFilename);
-
-        fs.writeFile(htmlFilename, bodyHtml, function (err) {
-            if(err) {
-                console.log(err);
-                res.status(500).send(err);
-                return;
-            }
-
-            console.log('The file was saved!')
-
+        console.log('The file was saved!')
+        phantom.create(function (ph) {
             ph.createPage(function(page) {
                 page.viewportSize = { width: 1080, height: 1080 };
                 page.clipRect = { top: 0, left: 0, width: 1080, height: 1080 };
