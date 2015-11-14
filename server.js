@@ -49,8 +49,8 @@ phantom.create(function (ph) {
                     page.render(pngFilename);
                     console.log('file saved');
                     var result = {uri: pngUri};
-                    console.log('returning ' + result);
-                    res.status(200).send()
+                    console.log('returning ' + util.inspect(result));
+                    res.status(200).send(result)
                 });
             });
         });
