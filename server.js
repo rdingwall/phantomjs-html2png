@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.use(express.static('static'));
+app.use(express.static(process.env.HTML2PNG_STATIC_DIR));
 
 phantom.create(function (ph) {
 
