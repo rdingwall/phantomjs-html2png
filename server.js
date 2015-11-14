@@ -18,7 +18,10 @@ app.get('/', function (req, res) {
 app.use(express.static('static'));
 
 app.post('/images', function(req, res) {
-    console.log(req.body);
+    if (typeof req.body !== 'string' || req.body.length == 0) {
+        console.log('warning: ' + util.inspect(req.body));
+        res.status(400).send('bad request');
+    }
     var bodyHtml = base64url.decode(req.body);
     var id = uuid.v1();
     var htmlFilename = process.env.HTML2PNG_TMP_DIR + '/' + id + '.html';
