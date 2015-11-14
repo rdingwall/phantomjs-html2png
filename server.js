@@ -36,6 +36,7 @@ phantom.create(function (ph) {
             if(err) {
                 console.log(err);
                 res.status(500).send(err);
+                return;
             }
 
             console.log('The file was saved!')
