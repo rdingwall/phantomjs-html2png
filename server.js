@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-const width = 768;
+const width = 1080;
 const height = 768;
 
 app.use(express.static(process.env.HTML2PNG_STATIC_DIR));
